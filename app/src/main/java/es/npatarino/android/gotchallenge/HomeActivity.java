@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,6 +36,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import es.npatarino.android.gotchallenge.extensions.ImageViewKt;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -175,26 +181,26 @@ public class HomeActivity extends AppCompatActivity {
                         GoTHousesListFragment.this.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                ArrayList<GoTCharacter.GoTHouse> hs = new ArrayList<GoTCharacter.GoTHouse>();
+                                ArrayList<GoTCharacter.GoTHouse> houses = new ArrayList<>();
                                 for (int i = 0; i < characters.size(); i++) {
                                     boolean b = false;
-                                    for (int j = 0; j < hs.size(); j++) {
-                                        if (hs.get(j).n.equalsIgnoreCase(characters.get(i).hn)) {
+                                    for (int j = 0; j < houses.size(); j++) {
+                                        if (houses.get(j).houseName.equalsIgnoreCase(characters.get(i).houseName)) {
                                             b = true;
                                         }
                                     }
                                     if (!b) {
-                                        if (characters.get(i).hi != null && !characters.get(i).hi.isEmpty()) {
+                                        if (characters.get(i).houseId != null && !characters.get(i).houseId.isEmpty()) {
                                             GoTCharacter.GoTHouse h = new GoTCharacter.GoTHouse();
-                                            h.i = characters.get(i).hi;
-                                            h.n = characters.get(i).hn;
-                                            h.u = characters.get(i).hu;
-                                            hs.add(h);
+                                            h.houseId = characters.get(i).houseId;
+                                            h.houseName = characters.get(i).houseName;
+                                            h.houseImageUrl = characters.get(i).houseImageUrl;
+                                            houses.add(h);
                                             b = false;
                                         }
                                     }
                                 }
-                                adp.addAll(hs);
+                                adp.addAll(houses);
                                 adp.notifyDataSetChanged();
                                 pb.hide();
                             }
@@ -265,13 +271,13 @@ public class HomeActivity extends AppCompatActivity {
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
             GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
             gotCharacterViewHolder.render(gcs.get(position));
-            ((GotCharacterViewHolder) holder).imp.setOnClickListener(new View.OnClickListener() {
+            ((GotCharacterViewHolder) holder).characterImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
                     Intent intent = new Intent(((GotCharacterViewHolder) holder).itemView.getContext(), DetailActivity.class);
-                    intent.putExtra("description", gcs.get(position).d);
-                    intent.putExtra("name", gcs.get(position).n);
-                    intent.putExtra("imageUrl", gcs.get(position).iu);
+                    intent.putExtra("description", gcs.get(position).description);
+                    intent.putExtra("name", gcs.get(position).name);
+                    intent.putExtra("imageUrl", gcs.get(position).imageUrl);
                     ((GotCharacterViewHolder) holder).itemView.getContext().startActivity(intent);
                 }
             });
@@ -285,35 +291,18 @@ public class HomeActivity extends AppCompatActivity {
         class GotCharacterViewHolder extends RecyclerView.ViewHolder {
 
             private static final String TAG = "GotCharacterViewHolder";
-            ImageView imp;
-            TextView tvn;
+            ImageView characterImageView;
+            TextView nameTextView;
 
             public GotCharacterViewHolder(View itemView) {
                 super(itemView);
-                imp = (ImageView) itemView.findViewById(R.id.ivBackground);
-                tvn = (TextView) itemView.findViewById(R.id.tv_name);
+                characterImageView = itemView.findViewById(R.id.characterItemImage);
+                nameTextView = itemView.findViewById(R.id.characterItemName);
             }
 
             public void render(final GoTCharacter goTCharacter) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        URL url = null;
-                        try {
-                            url = new URL(goTCharacter.iu);
-                            final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            a.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imp.setImageBitmap(bmp);
-                                    tvn.setText(goTCharacter.n);
-                                }
-                            });
-                        } catch (IOException e) {
-                            Log.e(TAG, e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
+                ImageViewKt.loadUrl(characterImageView, goTCharacter.imageUrl);
+                nameTextView.setText(goTCharacter.name);
             }
         }
 
@@ -359,30 +348,13 @@ public class HomeActivity extends AppCompatActivity {
 
             public GotCharacterViewHolder(View itemView) {
                 super(itemView);
-                imp = (ImageView) itemView.findViewById(R.id.ivBackground);
-                tvn = (TextView) itemView.findViewById(R.id.tv_name);
+                imp = itemView.findViewById(R.id.houseItemImage);
+                tvn = itemView.findViewById(R.id.tv_name);
             }
 
             public void render(final GoTCharacter.GoTHouse goTHouse) {
-                tvn.setText(goTHouse.n);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        URL url = null;
-                        try {
-                            url = new URL(goTHouse.u);
-                            final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            a.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imp.setImageBitmap(bmp);
-                                }
-                            });
-                        } catch (IOException e) {
-                            Log.e(TAG, e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
+                tvn.setText(goTHouse.houseName);
+                ImageViewKt.loadUrl(imp, goTHouse.houseImageUrl);
             }
         }
 

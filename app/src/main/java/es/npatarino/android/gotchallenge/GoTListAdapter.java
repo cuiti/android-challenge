@@ -66,7 +66,7 @@ public class GoTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public GotCharacterViewHolder(View itemView) {
             super(itemView);
-            imp = (ImageView) itemView.findViewById(R.id.ivBackground);
+            imp = (ImageView) itemView.findViewById(R.id.houseItemImage);
             tvn = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }
@@ -78,7 +78,7 @@ public class GoTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public GotHouseViewHolder(View itemView) {
             super(itemView);
-            imp = (ImageView) itemView.findViewById(R.id.ivBackground);
+            imp = (ImageView) itemView.findViewById(R.id.houseItemImage);
         }
     }
 }

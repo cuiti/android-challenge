@@ -8,64 +8,64 @@ import com.google.gson.annotations.SerializedName;
 public class GoTCharacter {
 
     @SerializedName("name")
-    String n;
+    String name;
     @SerializedName("imageUrl")
-    String iu;
+    String imageUrl;
     @SerializedName("description")
-    String d;
+    String description;
     @SerializedName("houseImageUrl")
-    String hu;
+    String houseImageUrl;
     @SerializedName("houseName")
-    String hn;
+    String houseName;
     @SerializedName("houseId")
-    String hi;
+    String houseId;
 
-    public String getHu() {
-        return hu;
+    public String getHouseImageUrl() {
+        return houseImageUrl;
     }
 
-    public void setHu(final String s) {
-        this.hu = s;
+    public void setHouseImageUrl(final String s) {
+        this.houseImageUrl = s;
     }
 
-    public String getHn() {
-        return hn;
+    public String getHouseName() {
+        return houseName;
     }
 
-    public void setHn(final String s) {
-        this.hn = s;
+    public void setHouseName(final String s) {
+        this.houseName = s;
     }
 
-    public String getHi() {
-        return hi;
+    public String getHouseId() {
+        return houseId;
     }
 
-    public void setHi(final String s) {
-        this.hi = s;
+    public void setHouseId(final String s) {
+        this.houseId = s;
     }
 
-    public String getN() {
-        return n;
+    public String getName() {
+        return name;
     }
 
-    public void setN(final String s) {
-        this.n = s;
+    public void setName(final String s) {
+        this.name = s;
     }
 
-    public String getIu() {
-        return iu;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setIu(final String s) {
-        this.iu = s;
+    public void setImageUrl(final String s) {
+        this.imageUrl = s;
     }
 
-    public String getD() {
-        return d;
+    public String getDescription() {
+        return description;
     }
 
-    public void setD(final String s) {
-        this.d = s;
+    public void setDescription(final String s) {
+        this.description = s;
     }
 
     /**
@@ -74,34 +74,34 @@ public class GoTCharacter {
     public static class GoTHouse {
 
         @SerializedName("houseImageUrl")
-        String u;
+        String houseImageUrl;
         @SerializedName("houseName")
-        String n;
+        String houseName;
         @SerializedName("houseId")
-        String i;
+        String houseId;
 
-        public String getU() {
-            return u;
+        public String getHouseImageUrl() {
+            return houseImageUrl;
         }
 
-        public void setU(final String houseImageUrl) {
-            this.u = houseImageUrl;
+        public void setHouseImageUrl(final String houseImageUrl) {
+            this.houseImageUrl = houseImageUrl;
         }
 
-        public String getN() {
-            return n;
+        public String getHouseName() {
+            return houseName;
         }
 
-        public void setN(final String houseName) {
-            this.n = houseName;
+        public void setHouseName(final String houseName) {
+            this.houseName = houseName;
         }
 
-        public String getI() {
-            return i;
+        public String getHouseId() {
+            return houseId;
         }
 
-        public void setI(final String houseId) {
-            this.i = houseId;
+        public void setHouseId(final String houseId) {
+            this.houseId = houseId;
         }
 
     }

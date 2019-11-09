@@ -3,7 +3,7 @@
                 android:layout_height="230dp">
 
     <ImageView
-        android:id="@+id/ivBackground"
+        android:id="@+id/houseItemImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
