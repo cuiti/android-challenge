@@ -5,16 +5,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -355,13 +355,16 @@ public class HomeActivity extends AppCompatActivity {
 
             private static final String TAG = "GotCharacterViewHolder";
             ImageView imp;
+            TextView tvn;
 
             public GotCharacterViewHolder(View itemView) {
                 super(itemView);
                 imp = (ImageView) itemView.findViewById(R.id.ivBackground);
+                tvn = (TextView) itemView.findViewById(R.id.tv_name);
             }
 
             public void render(final GoTCharacter.GoTHouse goTHouse) {
+                tvn.setText(goTHouse.n);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
