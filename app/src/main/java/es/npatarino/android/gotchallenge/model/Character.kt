@@ -7,4 +7,7 @@ data class Character(@SerializedName("name") val name: String,
                      @SerializedName("description") val description: String,
                      @SerializedName("houseImageUrl") val houseImageUrl: String,
                      @SerializedName("houseName") val houseName: String,
-                     @SerializedName("houseId") val houseId: String)
+                     @SerializedName("houseId") val houseId: String) {
+
+    val house get() = House(houseImageUrl, houseName, houseId)
+}

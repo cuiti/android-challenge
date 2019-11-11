@@ -17,12 +17,9 @@ public class GoTListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     static GoTListFragment.ListType type;
     Context context;
 
-   // private final List<GoTCharacter> gcs;
-
     public GoTListAdapter(GoTListFragment.ListType type, Context context){
         this.type = type;
         this.context = context;
-        //gcs = new List<GoTCharacter>();
     }
 
     @Override
