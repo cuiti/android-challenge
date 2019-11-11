@@ -13,24 +13,22 @@ import java.util.ArrayList
 import es.npatarino.android.gotchallenge.R
 import es.npatarino.android.gotchallenge.extensions.*
 import es.npatarino.android.gotchallenge.model.House
+import kotlinx.android.synthetic.main.got_house_row.view.*
 
-class GoTHouseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHolder>() {
 
     private val houses: MutableList<House> = ArrayList()
 
-    internal fun addAll(collection: Collection<House>) {
-        for (i in collection.indices) {
-            houses.add(collection.toTypedArray()[i])
-        }
+    internal fun addAll(houses: List<House>) {
+        this.houses.addAll(houses)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):GotCharacterViewHolder {
         return GotCharacterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.got_house_row, parent, false))
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val gotCharacterViewHolder = holder as GotCharacterViewHolder
-        gotCharacterViewHolder.render(houses[position])
+    override fun onBindViewHolder(holder: GotCharacterViewHolder, position: Int) {
+        holder.render(houses[position])
     }
 
     override fun getItemCount(): Int {
@@ -38,17 +36,12 @@ class GoTHouseAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class GotCharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imp: ImageView
-        var tvn: TextView
-
-        init {
-            imp = itemView.findViewById(R.id.houseItemImage)
-            tvn = itemView.findViewById(R.id.tv_name)
-        }
 
         fun render(goTHouse: House) {
-            tvn.text = goTHouse.name
-            imp.loadUrl(goTHouse.imageUrl)
+            with (itemView){
+                houseItemImage.loadUrl(goTHouse.imageUrl)
+                houseItemName.text =  goTHouse.name
+            }
         }
     }
 
