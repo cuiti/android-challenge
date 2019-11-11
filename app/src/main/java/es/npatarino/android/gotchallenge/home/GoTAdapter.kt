@@ -21,8 +21,14 @@ class GoTAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val characters: MutableList<Character> = ArrayList()
 
-    internal fun addAll(characters: List<Character>) {
+    fun addAll(characters: List<Character>) {
         this.characters.addAll(characters)
+        notifyDataSetChanged()
+    }
+
+    fun replace(characters: List<Character>){
+        this.characters.clear()
+        addAll(characters)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import javax.inject.Inject
 
@@ -22,6 +21,7 @@ class GoTCharacterListFragment : Fragment() {
 
     @Inject lateinit var presenter: HomePresenter
     private val disposables: CompositeDisposable = CompositeDisposable()
+    private val charactersAdapter = GoTAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_list, container, false)
@@ -31,20 +31,33 @@ class GoTCharacterListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val goTAdapter = GoTAdapter()
-        listFragmentRecyclerView.layoutManager = LinearLayoutManager(activity)
-        listFragmentRecyclerView.setHasFixedSize(true)
-        listFragmentRecyclerView.adapter = goTAdapter
+        setUpList()
+        handleSearch()
         presenter.getCharacters()
-                .subscribe(
-                        { characters ->
-                            goTAdapter.addAll(characters)
-                            goTAdapter.notifyDataSetChanged()
-                            listProgressBar.hide()
-                        },
+                .subscribe({
+                                charactersAdapter.addAll(it)
+                                listProgressBar.hide()
+                            },
                         { Log.e(TAG, it.message, it) }
                 )
                 .addTo(disposables)
+    }
+
+    private fun handleSearch(){
+        presenter.observeSearch(activity as SearchView)
+                .subscribe( {
+                    charactersAdapter.replace(it)
+                    Log.d(TAG, "Got ${it.size} characters from search")
+                }, {
+                    Log.e(TAG, it.message, it)
+                })
+                .addTo(disposables)
+    }
+
+    private fun setUpList() {
+        listFragmentRecyclerView.layoutManager = LinearLayoutManager(activity)
+        listFragmentRecyclerView.setHasFixedSize(true)
+        listFragmentRecyclerView.adapter = charactersAdapter
     }
 
     override fun onDestroy() {
