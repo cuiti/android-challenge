@@ -13,11 +13,10 @@ class Repository(val apiService: GotApiService, val database: GoTDatabase) {
         return getAllCharactersFromDatabase()
                 .flatMap {
                     if (it.isEmpty())
-                        apiService.getCharacters()
+                        getAllCharactersFromNetwork()
                     else Single.just(it)
                 }
                 .subscribeOn(Schedulers.io())
-                //.doOnSuccess { database.characterDao().insertAll(it) }
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -28,6 +27,9 @@ class Repository(val apiService: GotApiService, val database: GoTDatabase) {
                     .filter { it.name.isNotEmpty() }
                     .distinct()
                     .toList()
+
+    private fun getAllCharactersFromNetwork() = apiService.getCharacters()
+            .doOnSuccess { database.characterDao().insertAll(it).subscribe() }
 
     private fun getAllCharactersFromDatabase() = database.characterDao().getAll()
 }

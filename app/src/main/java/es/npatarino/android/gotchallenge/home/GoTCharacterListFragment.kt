@@ -47,7 +47,7 @@ class GoTCharacterListFragment : Fragment() {
         (activity as? SearchView)?.run {
             presenter.observeSearch(this)
                     .subscribe(
-                            { charactersAdapter.replace(it) },
+                            { charactersAdapter.replace(it) }, //TODO handle empty state
                             { Log.e(TAG, it.message, it) })
                     .addTo(disposables)
         }

@@ -21,6 +21,7 @@ class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHol
 
     internal fun addAll(houses: List<House>) {
         this.houses.addAll(houses)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):GotCharacterViewHolder {

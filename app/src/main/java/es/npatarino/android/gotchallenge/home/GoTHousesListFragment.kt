@@ -37,7 +37,6 @@ class GoTHousesListFragment : Fragment() {
                 .subscribe(
                         {
                             adapter.addAll(it)
-                            adapter.notifyDataSetChanged()
                             listProgressBar.hide()
                         },
                         { Log.e(TAG, it.message, it) })
