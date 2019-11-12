@@ -1,8 +1,13 @@
 package es.npatarino.android.gotchallenge.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class Character(@SerializedName("name") val name: String,
+@Entity
+data class Character(
+                    @PrimaryKey(autoGenerate = true) val id: Int,
+                    @SerializedName("name") val name: String,
                      @SerializedName("imageUrl") val imageUrl: String,
                      @SerializedName("description") val description: String,
                      @SerializedName("houseImageUrl") val houseImageUrl: String,

@@ -38,7 +38,7 @@ class GoTCharacterListFragment : Fragment() {
                                 charactersAdapter.addAll(it)
                                 listProgressBar.hide()
                             },
-                        { Log.e(TAG, it.message, it) }
+                        { Log.e(TAG, it.message, it) } //TODO Show an error message
                 )
                 .addTo(disposables)
     }

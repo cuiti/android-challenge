@@ -7,11 +7,17 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class Repository(val apiService: GotApiService) {
+class Repository(val apiService: GotApiService, val database: GoTDatabase) {
 
     fun getCharacters(): Single<List<Character>> {
-        return apiService.getCharacters()
+        return getAllCharactersFromDatabase()
+                .flatMap {
+                    if (it.isEmpty())
+                        apiService.getCharacters()
+                    else Single.just(it)
+                }
                 .subscribeOn(Schedulers.io())
+                //.doOnSuccess { database.characterDao().insertAll(it) }
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
@@ -22,4 +28,6 @@ class Repository(val apiService: GotApiService) {
                     .filter { it.name.isNotEmpty() }
                     .distinct()
                     .toList()
+
+    private fun getAllCharactersFromDatabase() = database.characterDao().getAll()
 }
