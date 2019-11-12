@@ -44,14 +44,13 @@ class GoTCharacterListFragment : Fragment() {
     }
 
     private fun handleSearch(){
-        presenter.observeSearch(activity as SearchView)
-                .subscribe( {
-                    charactersAdapter.replace(it)
-                    Log.d(TAG, "Got ${it.size} characters from search")
-                }, {
-                    Log.e(TAG, it.message, it)
-                })
-                .addTo(disposables)
+        (activity as? SearchView)?.run {
+            presenter.observeSearch(this)
+                    .subscribe(
+                            { charactersAdapter.replace(it) },
+                            { Log.e(TAG, it.message, it) })
+                    .addTo(disposables)
+        }
     }
 
     private fun setUpList() {

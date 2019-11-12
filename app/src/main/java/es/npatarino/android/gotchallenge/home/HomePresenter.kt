@@ -1,33 +1,22 @@
 package es.npatarino.android.gotchallenge.home
 
-import android.util.Log
 import es.npatarino.android.gotchallenge.model.Character
 import es.npatarino.android.gotchallenge.model.House
-import es.npatarino.android.gotchallenge.service.GotApiService
+import es.npatarino.android.gotchallenge.service.Repository
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class HomePresenter(val gotApiService: GotApiService) {
+class HomePresenter(val repository: Repository) {
 
     companion object {
         private const val SEARCH_DELAY = 700L
     }
 
-    fun getCharacters(): Single<List<Character>>{
-        return gotApiService.getCharacters()
-                .observeOn(AndroidSchedulers.mainThread())
-    }
+    fun getCharacters(): Single<List<Character>> = repository.getCharacters()
 
-    fun getHouses(): Single<List<House>> =
-            getCharacters()
-                    .flatMapObservable { Observable.fromIterable(it) }
-                    .map { it.house }
-                    .filter { it.name.isNotEmpty() }
-                    .distinct()
-                    .toList()
+    fun getHouses(): Single<List<House>> = repository.getHouses()
 
     fun observeSearch(source: SearchView): Observable<List<Character>>{
         return source

@@ -1,10 +1,9 @@
 package es.npatarino.android.gotchallenge.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,6 +11,7 @@ import java.util.ArrayList
 
 import es.npatarino.android.gotchallenge.R
 import es.npatarino.android.gotchallenge.extensions.*
+import es.npatarino.android.gotchallenge.housemembers.HouseMembersActivity
 import es.npatarino.android.gotchallenge.model.House
 import kotlinx.android.synthetic.main.got_house_row.view.*
 
@@ -41,7 +41,14 @@ class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHol
             with (itemView){
                 houseItemImage.loadUrl(goTHouse.imageUrl)
                 houseItemName.text =  goTHouse.name
+                houseItemImage.setOnClickListener { onHouseClick(goTHouse) }
             }
+        }
+
+        private fun onHouseClick(house: House){
+            val intent = Intent(itemView.context, HouseMembersActivity::class.java)
+            intent.putExtra("house", house)
+            itemView.context.startActivity(intent)
         }
     }
 

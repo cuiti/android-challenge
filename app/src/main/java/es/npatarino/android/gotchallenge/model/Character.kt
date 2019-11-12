@@ -10,4 +10,5 @@ data class Character(@SerializedName("name") val name: String,
                      @SerializedName("houseId") val houseId: String) {
 
     val house get() = House(houseImageUrl, houseName, houseId)
+    fun belongsTo(house: House) = houseId == house.id
 }
