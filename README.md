@@ -1,44 +1,22 @@
 # Game of Thrones for Android Challenge
-Android developers face challenges almost everyday during development: performance, security, backwards compatibility, testing... And mainly refactoring for it's own or legacy code. 
-This repository contains a project to face an small challenge where the developer should add some new features, detect (and implement) patterns, add tests, re-think the architecture and do a clean code.
 
-Game of Thrones for Android Challenge offers an app using an API to get data for [Game of Thrones][GameOfThronesLink] tv show. It's ready to run, it's working, but the code need to be improved. That's your challenge!
+### App was developed using:
+* Android Studio 3.5.2
+* Kotlin 1.3.50
+* Android Gradle plugin 3.5.2
 
-## Getting started
+Since image URLs are not working (Firebase returning status 4xx), the error fallback is handled with Glide. The problem with this approach is that Glide needs to wait until the server responds with an error before showing the fallback image, and that takes a second or two, which could mess with the animations. Given that one of the goals of this demo is to showcase those animations, I set up Glide to replace all images with an existing one, without waiting for the error.
 
-This repository contains an Android app that retrieve a list of some [Game of Thrones][GameOfThronesLink]' characters from an API. The app shows a list of the houses of the characters, the characters themselves and a detail description of each one.
-
-This behaviour it's done in two different [Activities][ActivityLink], one for the two lists and other for details of the character:
-
-![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
-* ``HomeActivity`` contains two [Fragments][FragmentLink] in a [ViewPager][ViewPagerLink]
-  * `GoTListFragment` shows a list of some the this tv show's characters.
-  * `GoTHousesListFragment` shows a list of the noble houses of the characters 
-
-* ``DetailActivity`` shows the name, photo and description of a character
-
-## Tasks 
-
-Your task as Android Developer is **clone** or **fork** this repository into one yours, **add some functionalities** and **refactor** the code before you give access to your repository.
-
-**The code in this application it's ready to be imported into your Android Studio and ready to run it (and see it working) without any change**
-
-###### New functionalities to add
+### Added features
 
 1. Search characters by name in the characters list
-2. Create a list of a characters by house, accessing to it by clicking a house image in the list of houses
-3. Capability to work offline
-4. Refactor the code
+2. Create a list of characters by house, accessing to it by clicking a house image in the list of houses
+3. Capability to work offline using database
+4. Refactored code to MVP pattern with RxJava. Added Dependency Injection
+5. Tests fo r the main logic and a high level flow.
+6. Added shared element transitions between list and detail
+7. Added parallax effect into detail page
 
-###### Some optional tasks to do:
-
-1. Tests the main logic and a high level flows.
-2. Add transitions between list and detail
-3. Add parallax effect into detail page
-
-###### Once you've finished
-1. Generate the application apk and place it into a distribution folder
-2. Have a rest after this "beautiful" code
 
 #License
 
