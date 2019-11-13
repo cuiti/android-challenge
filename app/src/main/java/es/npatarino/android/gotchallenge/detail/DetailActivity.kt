@@ -20,9 +20,9 @@ class DetailActivity : AppCompatActivity() {
         detailToolbar.title = n
         setSupportActionBar(detailToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = n
 
         detailImage.loadUrl(i)
-        detailName.text = n
         detailDescription.text = d
     }
 
