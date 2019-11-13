@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
@@ -46,8 +48,9 @@ class GoTCharacterListFragment : Fragment() {
     private fun handleSearch(){
         (activity as? SearchView)?.run {
             presenter.observeSearch(this)
+                    .doOnNext { listFragmentNoResultsText.visibility = if (it.isEmpty()) VISIBLE else GONE }
                     .subscribe(
-                            { charactersAdapter.replace(it) }, //TODO handle empty state
+                            { charactersAdapter.replace(it) },
                             { Log.e(TAG, it.message, it) })
                     .addTo(disposables)
         }
