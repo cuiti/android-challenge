@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 import es.npatarino.android.gotchallenge.GoTApplication
 import es.npatarino.android.gotchallenge.R
+import es.npatarino.android.gotchallenge.extensions.show
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -36,7 +37,7 @@ class HomeActivity : AppCompatActivity(), SearchView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        homeSearchInput.visibility = if (item.itemId == R.id.search) VISIBLE else GONE
+        homeSearchInput.show(item.itemId == R.id.search)
         return true
     }
 

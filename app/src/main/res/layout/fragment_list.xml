@@ -23,6 +23,18 @@
         android:layout_centerInParent="true"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/listFragmentErrorText"
+        android:text="@string/main_error"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:visibility="gone"/>
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/listProgressBar"
         style="?android:attr/progressBarStyleLarge"

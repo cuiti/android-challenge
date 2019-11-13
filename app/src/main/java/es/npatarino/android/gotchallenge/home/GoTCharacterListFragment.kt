@@ -15,6 +15,9 @@ import javax.inject.Inject
 
 import es.npatarino.android.gotchallenge.GoTApplication
 import es.npatarino.android.gotchallenge.R
+import es.npatarino.android.gotchallenge.extensions.gone
+import es.npatarino.android.gotchallenge.extensions.show
+import es.npatarino.android.gotchallenge.extensions.visible
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -35,12 +38,20 @@ class GoTCharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpList()
         handleSearch()
+        fetchCharacterList()
+    }
+
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
+    }
+
+    private fun fetchCharacterList(){
         presenter.getCharacters()
-                .subscribe({
-                                charactersAdapter.addAll(it)
-                                listProgressBar.hide()
-                            },
-                        { Log.e(TAG, it.message, it) } //TODO Show an error message
+                .doAfterTerminate { listProgressBar.hide() }
+                .subscribe(
+                        { charactersAdapter.addAll(it) },
+                        { showErrorState() }
                 )
                 .addTo(disposables)
     }
@@ -48,7 +59,7 @@ class GoTCharacterListFragment : Fragment() {
     private fun handleSearch(){
         (activity as? SearchView)?.run {
             presenter.observeSearch(this)
-                    .doOnNext { listFragmentNoResultsText.visibility = if (it.isEmpty()) VISIBLE else GONE }
+                    .doOnNext { listFragmentNoResultsText.show(it.isEmpty()) }
                     .subscribe(
                             { charactersAdapter.replace(it) },
                             { Log.e(TAG, it.message, it) })
@@ -62,9 +73,13 @@ class GoTCharacterListFragment : Fragment() {
         listFragmentRecyclerView.adapter = charactersAdapter
     }
 
-    override fun onDestroy() {
-        disposables.dispose()
-        super.onDestroy()
+    private fun showErrorState(){
+        listFragmentErrorText.visible()
+        listFragmentErrorText.setOnClickListener {
+            it.gone()
+            listProgressBar.show()
+            fetchCharacterList()
+        }
     }
 
     companion object {
