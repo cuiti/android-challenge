@@ -5,9 +5,9 @@ import es.npatarino.android.gotchallenge.dagger.AppComponent
 import es.npatarino.android.gotchallenge.dagger.AppModule
 import es.npatarino.android.gotchallenge.dagger.DaggerAppComponent
 
-class GoTApplication : Application() {
+open class GoTApplication : Application() {
 
-    val gotComponent: AppComponent by lazy {
+    open val gotComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
                 .appModule(AppModule(this))
                 .build()

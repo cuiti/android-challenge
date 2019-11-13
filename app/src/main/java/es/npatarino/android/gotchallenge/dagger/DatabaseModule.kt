@@ -8,11 +8,11 @@ import es.npatarino.android.gotchallenge.service.GoTDatabase
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule {
+open class DatabaseModule {
 
     @Provides
     @Singleton
-    fun providesDatabase(context: Context) =
+    open fun providesDatabase(context: Context) =
             Room.databaseBuilder(context, GoTDatabase::class.java, "got_database")
             .build()
 }

@@ -16,7 +16,7 @@ import java.io.File
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+open class NetworkModule {
 
     companion object{
         private const val BASE_URL = "https://project-8424324399725905479.firebaseio.com/"
@@ -24,7 +24,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGotApi(retrofit: Retrofit): GotApiService =
+    open fun provideGotApi(retrofit: Retrofit): GotApiService =
             retrofit.create(GotApiService::class.java)
 
     @Provides
