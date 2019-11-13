@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
-import es.npatarino.android.gotchallenge.service.GoTDatabase
+import es.npatarino.android.gotchallenge.database.GoTDatabase
 import javax.inject.Singleton
 
 @Module

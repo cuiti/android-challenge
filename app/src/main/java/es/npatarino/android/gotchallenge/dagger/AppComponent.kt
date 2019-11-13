@@ -1,8 +1,8 @@
 package es.npatarino.android.gotchallenge.dagger
 
 import dagger.Component
-import es.npatarino.android.gotchallenge.home.GoTCharacterListFragment
-import es.npatarino.android.gotchallenge.home.GoTHousesListFragment
+import es.npatarino.android.gotchallenge.home.characters.GoTCharacterListFragment
+import es.npatarino.android.gotchallenge.home.houses.GoTHousesListFragment
 import es.npatarino.android.gotchallenge.home.HomeActivity
 import es.npatarino.android.gotchallenge.housemembers.HouseMembersActivity
 import javax.inject.Singleton

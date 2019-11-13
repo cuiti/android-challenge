@@ -24,8 +24,4 @@ class DetailActivity : AppCompatActivity() {
         detailImage.loadUrl(character.imageUrl)
         detailDescription.text = character.description
     }
-
-    companion object {
-        private const val TAG = "DetailActivity"
-    }
 }

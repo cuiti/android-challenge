@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.home
+package es.npatarino.android.gotchallenge.home.houses
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import es.npatarino.android.gotchallenge.housemembers.HouseMembersActivity
 import es.npatarino.android.gotchallenge.model.House
 import kotlinx.android.synthetic.main.got_house_row.view.*
 
-class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHolder>() {
+class HousesAdapter : RecyclerView.Adapter<HousesAdapter.GotCharacterViewHolder>() {
 
     private val houses: MutableList<House> = ArrayList()
 
@@ -24,7 +24,7 @@ class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHol
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):GotCharacterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GotCharacterViewHolder {
         return GotCharacterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.got_house_row, parent, false))
     }
 
@@ -38,11 +38,11 @@ class GoTHouseAdapter : RecyclerView.Adapter<GoTHouseAdapter.GotCharacterViewHol
 
     inner class GotCharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun render(goTHouse: House) {
+        fun render(house: House) {
             with (itemView){
-                houseItemImage.loadUrl(goTHouse.imageUrl)
-                houseItemName.text =  goTHouse.name
-                houseItemImage.setOnClickListener { onHouseClick(goTHouse) }
+                houseItemImage.loadUrl(house.imageUrl)
+                houseItemName.text = house.name
+                houseItemImage.setOnClickListener { onHouseClick(house) }
             }
         }
 

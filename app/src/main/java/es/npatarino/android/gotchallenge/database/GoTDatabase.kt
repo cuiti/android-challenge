@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.service
+package es.npatarino.android.gotchallenge.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

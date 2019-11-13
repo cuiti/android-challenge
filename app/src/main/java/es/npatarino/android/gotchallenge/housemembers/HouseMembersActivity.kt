@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.npatarino.android.gotchallenge.GoTApplication
 import es.npatarino.android.gotchallenge.R
-import es.npatarino.android.gotchallenge.home.GoTAdapter
+import es.npatarino.android.gotchallenge.home.characters.CharactersAdapter
 import es.npatarino.android.gotchallenge.model.House
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class HouseMembersActivity : AppCompatActivity() {
 
     @Inject lateinit var presenter: HouseMembersPresenter
-    private val charactersAdapter = GoTAdapter()
+    private val charactersAdapter = CharactersAdapter()
     private val disposables = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,11 @@ class HouseMembersActivity : AppCompatActivity() {
         intent.extras?.getSerializable("house")?.let {
             showHouseData(it as House)
         }
+    }
 
+    override fun onDestroy() {
+        disposables.dispose()
+        super.onDestroy()
     }
 
     private fun showHouseData(house: House){

@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.home
+package es.npatarino.android.gotchallenge.home.characters
 
 import android.app.Activity
 import android.content.Intent
@@ -18,9 +18,7 @@ import kotlinx.android.synthetic.main.got_character_row.view.*
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 
-
-
-class GoTAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CharactersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val characters: MutableList<Character> = ArrayList()
 
@@ -47,13 +45,13 @@ class GoTAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal inner class GotCharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun render(goTCharacter: Character) {
+        fun render(character: Character) {
             with(itemView) {
-                characterItemImage.loadUrl(goTCharacter.imageUrl)
-                characterItemName.text = goTCharacter.name
-                characterItemImage.setOnClickListener { onCharacterClick(goTCharacter) }
-                characterItemName.transitionName = goTCharacter.name
-                characterItemImage.transitionName = goTCharacter.name + goTCharacter.imageUrl
+                characterItemImage.loadUrl(character.imageUrl)
+                characterItemName.text = character.name
+                characterItemImage.setOnClickListener { onCharacterClick(character) }
+                characterItemName.transitionName = character.name
+                characterItemImage.transitionName = character.name + character.imageUrl
             }
         }
 

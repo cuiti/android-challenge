@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.service
 
+import es.npatarino.android.gotchallenge.database.GoTDatabase
 import es.npatarino.android.gotchallenge.model.Character
 import es.npatarino.android.gotchallenge.model.House
 import io.reactivex.Observable

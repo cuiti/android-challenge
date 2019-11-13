@@ -1,11 +1,9 @@
-package es.npatarino.android.gotchallenge.home
+package es.npatarino.android.gotchallenge.home.characters
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
@@ -18,6 +16,8 @@ import es.npatarino.android.gotchallenge.R
 import es.npatarino.android.gotchallenge.extensions.gone
 import es.npatarino.android.gotchallenge.extensions.show
 import es.npatarino.android.gotchallenge.extensions.visible
+import es.npatarino.android.gotchallenge.home.HomePresenter
+import es.npatarino.android.gotchallenge.home.SearchView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -26,7 +26,7 @@ class GoTCharacterListFragment : Fragment() {
 
     @Inject lateinit var presenter: HomePresenter
     private val disposables: CompositeDisposable = CompositeDisposable()
-    private val charactersAdapter = GoTAdapter()
+    private val charactersAdapter = CharactersAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_list, container, false)
