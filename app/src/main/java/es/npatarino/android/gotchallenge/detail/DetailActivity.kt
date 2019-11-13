@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 import es.npatarino.android.gotchallenge.R
 import es.npatarino.android.gotchallenge.extensions.loadUrl
+import es.npatarino.android.gotchallenge.model.Character
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
@@ -13,17 +14,15 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val d = intent.getStringExtra("description")
-        val n = intent.getStringExtra("name")
-        val i = intent.getStringExtra("imageUrl")
+        val character = (intent.getSerializableExtra("character") as Character)
 
-        detailToolbar.title = n
+        detailToolbar.title = character.name
         setSupportActionBar(detailToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = n
+        supportActionBar?.title = character.name
 
-        detailImage.loadUrl(i)
-        detailDescription.text = d
+        detailImage.loadUrl(character.imageUrl)
+        detailDescription.text = character.description
     }
 
     companion object {

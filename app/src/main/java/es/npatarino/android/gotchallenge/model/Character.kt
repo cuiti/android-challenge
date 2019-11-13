@@ -3,6 +3,7 @@ package es.npatarino.android.gotchallenge.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity
 data class Character(
@@ -11,7 +12,7 @@ data class Character(
         @SerializedName("description") val description: String,
         @SerializedName("houseImageUrl") val houseImageUrl: String,
         @SerializedName("houseName") val houseName: String,
-        @SerializedName("houseId") val houseId: String) {
+        @SerializedName("houseId") val houseId: String): Serializable {
 
     val house get() = House(houseImageUrl, houseName, houseId)
     fun belongsTo(house: House) = houseId == house.id

@@ -1,11 +1,10 @@
 package es.npatarino.android.gotchallenge.home
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,6 +15,10 @@ import es.npatarino.android.gotchallenge.detail.DetailActivity
 import es.npatarino.android.gotchallenge.extensions.*
 import es.npatarino.android.gotchallenge.model.Character
 import kotlinx.android.synthetic.main.got_character_row.view.*
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+
+
 
 class GoTAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -48,16 +51,20 @@ class GoTAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             with(itemView) {
                 characterItemImage.loadUrl(goTCharacter.imageUrl)
                 characterItemName.text = goTCharacter.name
-                characterItemImage.setOnClickListener { onCharacterClick() }
+                characterItemImage.setOnClickListener { onCharacterClick(goTCharacter) }
+                characterItemName.transitionName = goTCharacter.name
+                characterItemImage.transitionName = goTCharacter.name + goTCharacter.imageUrl
             }
         }
 
-        private fun onCharacterClick(){
+        private fun onCharacterClick(character: Character){
+            val sharedElements = arrayOf<Pair<View,String>>(Pair(itemView, "detailToolbarImage"),
+                                        Pair(itemView.characterItemName, "detailToolbarTitle"))
+            val options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(itemView.context as Activity, *sharedElements)
             val intent = Intent(itemView.context, DetailActivity::class.java)
-            intent.putExtra("description", characters[position].description)
-            intent.putExtra("name", characters[position].name)
-            intent.putExtra("imageUrl", characters[position].imageUrl)
-            itemView.context.startActivity(intent)
+            intent.putExtra("character", character)
+            itemView.context.startActivity(intent, options.toBundle())
         }
     }
 
