@@ -50,7 +50,10 @@ class GoTCharacterListFragment : Fragment() {
         presenter.getCharacters()
                 .doAfterTerminate { listProgressBar.hide() }
                 .subscribe(
-                        { charactersAdapter.addAll(it) },
+                        {
+                            listFragmentRecyclerView.scheduleLayoutAnimation()
+                            charactersAdapter.addAll(it)
+                        },
                         { showErrorState() }
                 )
                 .addTo(disposables)
